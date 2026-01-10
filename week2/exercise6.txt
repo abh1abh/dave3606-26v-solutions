@@ -1,0 +1,24 @@
+6n lg n + 2n + 1000
+
+Dominant: n lg n 
+
+Big-O
+O(n^2) -> n lg n ≤ n^2
+O(n lg n) -> n lg n ≤ n lg n
+
+Not: 
+O(n) -> n lg n ≤ n (false)
+
+Big-theta
+Θ(n lg n) -> n lg n = n lg n 
+
+Not: 
+Θ(n^2) -> n lg n ≠ n^2 
+Θ(n) -> n lg n ≠ n
+
+Big-omega:
+Ω(n lg n) -> n lg n ≥ n lg n 
+Ω(n) -> n lg n ≥ n 
+
+Not: 
+Ω(n^2) -> n lg n ≥ n^2 (false ) 

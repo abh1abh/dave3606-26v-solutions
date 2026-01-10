@@ -1,0 +1,5 @@
+The algorithm is not linear-time because it still performs Θ(n log n) computational work, 
+and artificially sleeping does not reduce an algorithm’s asymptotic complexity.
+Asymptotic notation ignores constant factors, like the 1000000n. Asymptotic notation
+counts actual algorithmic steps. 
+

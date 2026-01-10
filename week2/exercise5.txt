@@ -1,0 +1,24 @@
+Here we have 4n^3 + 30n + 314.
+
+Here the dominant is n^3 
+
+Big-theta: 
+It's tight bound to Θ(n^3) because it grows the same 
+Not Θ(n), Θ(n^2), Θ(n^4) because its not tight. 
+
+Big-O:
+
+O(n^3) -> n^3 ≤ n^4
+O(n^4) ->  n^4 ≤ n^4
+Not
+O(n^2) -> n^4 ≤ n^2 (false)
+O(n) -> n^4 ≤ n (false)
+
+Big-omega:
+Ω(n) -> n^3 ≥ n
+Ω(n^2) -> n^3 ≥ n^2
+Ω(n^3) -> n^3 ≥ n^3
+
+Not: 
+Ω(n^4) -> n^3 ≥ n^4 (false)
+

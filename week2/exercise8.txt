@@ -1,0 +1,24 @@
+Best case: 5n
+Worst case 2n^2 + 7n +1
+
+O(n^2) -> general case ≤ n^2 
+O(n) -> general case ≤ n (false due to worst case being n^2)
+
+Θ(n^2) -> general case = n^2 (too strict — best case is only linear)
+Θ(n) ->general case = n (too small — worst case is quadratic)
+
+Ω(n^2) -> general case ≥ n^2 (false — best case is linear)
+Ω(n) -> general case ≥ n 
+
+
+Why O(n^2) is correct but incomplete description:
+O(n^2) only describe the algorithm's upper bound. It does not say anything about how 
+fast the algorithm can be in the best case or how it performs on average. 
+A complete description would be:
+Best case: Θ(n)
+Worst case: O(n^2)
+General case: Θ(n) and O(n^2)
+
+Is the statement true?
+No. The algorithm's best case is 5n, so the statement is not true.
+

@@ -1,0 +1,23 @@
+9n^2 + 5n + 42
+Dominant: n^2
+
+Big-O
+O(n^2) -> n^2 ≤ n^2 
+
+Not:
+O(n^3) -> n^2 ≤ n^3 (true, but not tight)
+O(n) -> n^2 ≤ n ❌
+
+Big-Theta
+Θ(n^2) -> n^2 = n^2 
+
+Not:
+Θ(n^3) -> n^2 ≠ n^3 ❌
+Θ(n) -> n^2 ≠ n ❌
+
+Big-Omega
+Ω(n^2) -> n^2 ≥ n^2 
+
+Not:
+Ω(n^3) -> n^2 ≥ n^3 ❌
+Ω(n) -> n^2 ≥ n (true, but not tight)

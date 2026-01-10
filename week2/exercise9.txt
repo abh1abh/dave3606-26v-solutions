@@ -1,0 +1,8 @@
+Line 15 is constant 
+Line 16 loops through n times 
+Line 17: In Java String is immutable, so every += operation we need to allocate a 
+a new string, copy the old html content and add the new content. This results in n^2
+Line 19: n since we need to loop through the string and then add the last content. 
+Line 20: constant
+
+This results in buildHtmlList being n^2
