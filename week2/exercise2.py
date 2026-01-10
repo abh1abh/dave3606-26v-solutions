@@ -1,11 +1,8 @@
-
 def main():
     sample_array = [64, 25, 12, 22, 11]
     print("Original array is:", sample_array)
     selection_sort(sample_array)
     print("Sorted array is:", sample_array)
-
-
 
 
 def selection_sort(arr):
@@ -16,11 +13,13 @@ def selection_sort(arr):
         for j in range(i + 1, len(arr)):
             if arr[j] < arr[min_index]:
                 min_index = j
-        if(min_index != i):
+        if min_index != i:
             arr[i], arr[min_index] = swap(arr[i], arr[min_index])
-    
+
+
 def swap(a, b):
     return (b, a)
+
 
 if __name__ == "__main__":
     main()
@@ -41,4 +40,3 @@ Line 20: 0
 
 Total = 1 + (n + 1) + n + n(n+1)/2 + n(n-1)/2 = n^2 + 3n/2 + 2  
 """
-

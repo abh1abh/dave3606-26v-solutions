@@ -1,16 +1,14 @@
-
-
-
 def main():
     sample_array = [64, 25, 12, 22, 11]
     print("Original array is:", sample_array)
     merge_sort(sample_array)
     print("Sorted array is:", sample_array)
 
+
 def merge_sort(arr):
     if len(arr) > 1:
-        mid = len(arr) // 2 # // divides and floors the result
-        l = arr[:mid] 
+        mid = len(arr) // 2  # // divides and floors the result
+        l = arr[:mid]
         r = arr[mid:]
 
         merge_sort(l)
