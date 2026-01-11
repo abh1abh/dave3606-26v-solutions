@@ -1,5 +1,5 @@
-The algorithm is not linear-time because it still performs Θ(n log n) computational work, 
+The algorithm is not linear-time because the merge sort still has to perform Θ(n lg n) computational work,
 and artificially sleeping does not reduce an algorithm’s asymptotic complexity.
-Asymptotic notation ignores constant factors, like the 1000000n. Asymptotic notation
-counts actual algorithmic steps. 
-
+Asymptotic notation ignores constant factors, so even 1000000n is equivalent to n, which is a lower-order term than n lg n.
+If this algorithm is given enough input, we will eventually see that the merge sort
+starts taking more time than 1000000n seconds, and then the sleep can't rewind time.
