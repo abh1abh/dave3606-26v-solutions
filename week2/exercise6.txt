@@ -1,24 +1,21 @@
-6n lg n + 2n + 1000
+In 6 n lg n + 2n + 1000, the highest-order term is n lg n.
 
-Dominant: n lg n 
+Below, the comparison operators are used in the "loose" sense of showing which side has got the highest-order term.
 
-Big-O
+O means an upper bound, so the ones with the same or a greater highest-order term are correct:
 O(n^2) -> n lg n ≤ n^2
 O(n lg n) -> n lg n ≤ n lg n
+Incorrect:
+O(n) -> n lg n ≤ n (false - the logarithm does contribute with growth even though it is very slow)
 
-Not: 
-O(n) -> n lg n ≤ n (false)
+Θ means both an upper and a lower bound, so only the one with the same highest-order term is correct:
+Θ(n lg n) -> n lg n = n lg n
+Incorrect:
+Θ(n^2) -> n lg n = n^2 (false)
+Θ(n) -> n lg n = n (false)
 
-Big-theta
-Θ(n lg n) -> n lg n = n lg n 
-
-Not: 
-Θ(n^2) -> n lg n ≠ n^2 
-Θ(n) -> n lg n ≠ n
-
-Big-omega:
-Ω(n lg n) -> n lg n ≥ n lg n 
-Ω(n) -> n lg n ≥ n 
-
-Not: 
-Ω(n^2) -> n lg n ≥ n^2 (false ) 
+Ω means a lower bound, so the ones with the same or a smaller highest-order term are correct:
+Ω(n lg n) -> n lg n ≥ n lg n
+Ω(n) -> n lg n ≥ n
+Incorrect:
+Ω(n^2) -> n lg n ≥ n^2 (false)

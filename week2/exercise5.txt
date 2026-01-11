@@ -1,24 +1,24 @@
-Here we have 4n^3 + 30n + 314.
+In 4n^3 + 30n + 314, the highest-order term is n^3.
 
-Here the dominant is n^3 
+Below, the comparison operators are used in the "loose" sense of showing which side has got the highest-order term.
 
-Big-theta: 
-It's tight bound to Θ(n^3) because it grows the same 
-Not Θ(n), Θ(n^2), Θ(n^4) because its not tight. 
+O means an upper bound, so the ones with the same or a greater highest-order term are correct:
+O(n^4) -> n^3 ≤ n^4
+O(n^3) -> n^3 ≤ n^3
+Incorrect:
+O(n^2) -> n^3 ≤ n^2 (false)
+O(n) -> n^3 ≤ n (false)
 
-Big-O:
+Θ means both an upper and a lower bound, so only the one with the same highest-order term is correct:
+Θ(n^3) -> n^3 = n^3
+Incorrect:
+Θ(n^4) -> n^4 = n^3 (false)
+Θ(n^2) -> n^2 = n^3 (false)
+Θ(n) -> n = n^3 (false)
 
-O(n^3) -> n^3 ≤ n^4
-O(n^4) ->  n^4 ≤ n^4
-Not
-O(n^2) -> n^4 ≤ n^2 (false)
-O(n) -> n^4 ≤ n (false)
-
-Big-omega:
+Ω means a lower bound, so the ones with the same or a smaller highest-order term are correct:
 Ω(n) -> n^3 ≥ n
 Ω(n^2) -> n^3 ≥ n^2
 Ω(n^3) -> n^3 ≥ n^3
-
-Not: 
+Incorrect:
 Ω(n^4) -> n^3 ≥ n^4 (false)
-

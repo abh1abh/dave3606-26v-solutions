@@ -1,8 +1,10 @@
-Line 15 is constant 
-Line 16 loops through n times 
-Line 17: In Java String is immutable, so every += operation we need to allocate a 
-a new string, copy the old html content and add the new content. This results in n^2
-Line 19: n since we need to loop through the string and then add the last content. 
-Line 20: constant
+Line 15: 1
+Line 16: n iterations
+Line 17: In Java, strings are immutable, so every += operation needs to allocate a
+         new string, copy the old content and add the new content. The first time,
+         this takes k steps, the second time takes 2k, the third time takes 3k, and so on,
+         and the last time takes nk, for a total of k * n * (n + 1) / 2.
+Line 19: nk + 1 since we need to loop through the string and then add the last content.
+Line 20: 1
 
-This results in buildHtmlList being n^2
+Line 17 results in `buildHtmlList` being Θ(kn^2).

@@ -1,23 +1,21 @@
-9n^2 + 5n + 42
-Dominant: n^2
+In 9n^2 + 5n + 42, the highest-order term is n^2.
 
-Big-O
-O(n^2) -> n^2 ≤ n^2 
+Below, the comparison operators are used in the "loose" sense of showing which side has got the highest-order term.
 
-Not:
+O means an upper bound, so the ones with the same or a greater highest-order term are true, but only the one with the same highest-order term is tight:
+O(n^2) -> n^2 ≤ n^2
+Incorrect:
 O(n^3) -> n^2 ≤ n^3 (true, but not tight)
-O(n) -> n^2 ≤ n ❌
+O(n) -> n^2 ≤ n (false)
 
-Big-Theta
-Θ(n^2) -> n^2 = n^2 
+Θ means both an upper and a lower bound, so only the one with the same highest-order term is correct, and Θ is always tight:
+Θ(n^2) -> n^2 = n^2
+Incorrect:
+Θ(n^3) -> n^2 ≠ n^3 (false)
+Θ(n) -> n^2 ≠ n (false)
 
-Not:
-Θ(n^3) -> n^2 ≠ n^3 ❌
-Θ(n) -> n^2 ≠ n ❌
-
-Big-Omega
-Ω(n^2) -> n^2 ≥ n^2 
-
-Not:
-Ω(n^3) -> n^2 ≥ n^3 ❌
+Ω means a lower bound, so the ones with the same or a smaller highest-order term are true, but only the one with the same highest-order term is tight:
+Ω(n^2) -> n^2 ≥ n^2
+Incorrect:
+Ω(n^3) -> n^2 ≥ n^3 (false)
 Ω(n) -> n^2 ≥ n (true, but not tight)

@@ -15,12 +15,16 @@ public class exercise9 {
     }
 
     public static String buildHtmlList(String[] items) {
-        StringBuilder htmlList = new StringBuilder();
-        htmlList.append("<ul>\n"); // O(1)
+        StringBuilder html = new StringBuilder(); // O(1)
+        html.append("<ul>\n"); // O(1)
         for (String item : items) { // n iterations
-            htmlList.append("  <li>").append(item).append("</li>\n"); // O(1) in each iteration; O(n) in total
+            html.append("  <li>"); // O(1) each time, O(n) total
+            html.append(item); // O(k) each time, O(nk) total
+            html.append("</li>\n"); // O(1) each time, O(n) total
         }
-        htmlList.append("</ul>"); // O(1)
-        return htmlList.toString(); // O(n)
+        html.append("</ul>"); // O(1)
+        return html.toString(); // O(nk)
+
+        // Total: O(nk)
     }
 }
