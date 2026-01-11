@@ -13,14 +13,13 @@ public class exercise10 {
         list.remove(1);
         System.out.println("List size after removal: " + list.size()); // Output: List size after removal: 2
         System.out.println("Item at index 1 after removal: " + list.get(1)); // Output: Item at index 1 after removal:
-                                                                             // Cherry
     }
 }
 
 class ExtendableList<T> {
     private T[] items;
     private int size;
-    private static final int INITIAL_CAPACITY = 10;
+    private static final int INITIAL_CAPACITY = 1;
 
     // SuppressWarnings is used to avoid unchecked cast warning from Object[] to T[]
     @SuppressWarnings("unchecked")
