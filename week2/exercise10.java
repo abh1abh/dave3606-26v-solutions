@@ -19,7 +19,7 @@ public class exercise10 {
 class ExtendableList<T> {
     private T[] items;
     private int size;
-    private static final int INITIAL_CAPACITY = 1;
+    private static final int INITIAL_CAPACITY = 10;
 
     // SuppressWarnings is used to avoid unchecked cast warning from Object[] to T[]
     @SuppressWarnings("unchecked")
