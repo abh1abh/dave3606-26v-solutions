@@ -12,7 +12,13 @@ public class exercise10 {
 
         list.remove(1);
         System.out.println("List size after removal: " + list.size()); // Output: List size after removal: 2
-        System.out.println("Item at index 1 after removal: " + list.get(1)); // Output: Item at index 1 after removal:
+        System.out.println("Item at index 1 after removal: " + list.get(1)); // Output: Item at index 1 after removal
+
+        for (int i = 0; i < 20; i++) {
+            list.add("Item " + i);
+        }
+        System.out.println("Final list size: " + list.size()); // Output: Final list size: 22
+        System.out.println("Array size (capacity): " + list.arraySize()); // Output: Array size (capacity): 40
     }
 }
 
@@ -45,6 +51,10 @@ class ExtendableList<T> {
 
     public int size() {
         return size;
+    }
+
+    public int arraySize() {
+        return items.length;
     }
 
     public void remove(int index) {

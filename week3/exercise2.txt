@@ -1,0 +1,19 @@
+ Consider the dict comprehension shown above, in dict_comprenehsion.py. If the length of values is 𝑛,
+computing condition(x) takes 𝑐(𝑛), computing key_transform(x) takes 𝑘(𝑛), and computing
+value_transform(x) takes 𝑣(𝑛), what is the complexity of computing the dict comprehension? Use the
+"split" complexity notation to highlight that some of these functions will always be invoked 𝑛 times while
+others might be invoked fewer times.
+
+result = {key_transform(x): value_transform(x) for x in values if condition(x)}
+
+condition(x) would run every time which gives gives complexity of:
+n * c(n).
+While k(n) and v(n) only run som of the time since x need to satisfy condition(x). 
+Let's say m is the number of elements that satisfy condition(x). 
+This gives key_transform(x) and value_transform(x) the complexity of:
+m * k(n)
+m * v(n)
+
+Total time complexity:
+n * c(n) + m * k(n) + m * v(n)
+n * c(n) + m *(k(n) + v(n))
