@@ -1,0 +1,7 @@
+7a and 7b: See `ExpressionTree.java`.
+7c: See `Node.java`.
+7d: The output is wrong, because the program has caused integer overflow (signed integer overflow specifically, but in Java, the distinction between signed and unsigned integer overflow doesn't matter). One way to avoid it is the following:
+    - If both integers are positive: subtract one of them from the greatest possible `int` (this value is available in `Integer.MAX_VALUE`); if the result is smaller than the other value, you know that adding them would produce overflow.
+    - If both integers are negative: subtract one of them from the smallest possible `int` (this value is available in `Integer.MIN_VALUE`); if the result is greater (less negative) than the other value, you know that adding them would produce overflow.
+    - If the integers have different signs, adding them is always safe.
+7e:

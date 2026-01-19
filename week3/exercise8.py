@@ -10,7 +10,9 @@ def count_files_dfs(current_path, file_counts):
         filename = path.basename(current_path)
         file_counts[filename] = file_counts.get(filename, 0) + 1
 
-    # If it's a directory, recurse into its children.
+    # If it's a directory, find its children.
+    # (In order for the loop to work, we must always have *a* list of
+    # children, but for a regular file, the list is empty.)
     children = []
     if is_directory:
         for child_name in listdir(current_path):

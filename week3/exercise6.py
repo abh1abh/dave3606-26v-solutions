@@ -7,9 +7,11 @@ def unique_ages(persons):
         age_count[person.age] = age_count.get(person.age, 0) + 1
 
     # Collect names of persons whose age occurs only once.
-    result = []
-    for person in persons:
-        # Check if the age occurs only once.
-        if age_count[person.age] == 1:
-            result.append(person.name)
-    return result
+    # Using [] to perform the lookup is safe (even though it will
+    # throw an exception if the key is not in the map) because we
+    # have already ensured that the age of every person is in the dict.
+    # (Slight misphrasing in the task: it can't be done *only* with
+    # comprehensions - creating the frequency dict requires a regular loop
+    # because a comprehension can't look at the existing value for a key - but
+    # creating the final result here can be done with a comprehension.)
+    return [person.name for person in persons if age_count[person.age] == 1]

@@ -1,22 +1,18 @@
 Exercise 4a:
-result = [transform(x) for x in values if expensive_condition(x)]
 
-Here expensive_condition(x) would be run n times giving it a complexity of:
+Here, expensive_condition(x) would be run n times, giving it a complexity of:
 n * Θ(n) = Θ(n^2)
-While m is the number of elements satisfied by expensive_condition(x) giving it an complexity of:
+If m is the number of elements satisfied by the condition, then the complexity of the calls to transform(x) is:
 m * Θ(1) = Θ(m)
 The total complexity is then:
-Θ(n^2) + Θ(m) = Θ(n^2)
+Θ(n^2) + Θ(m) = Θ(n^2) (since m <= n <= n^2)
 
 
 Exercise 4b:
-filtered = [x for x in values if expensive_condition(x)]
-result = [transform(x) for x in filtered]
-
-Here the filtering would n times which gives it a complexity of:
+Here too, the filtering is run on each of the n elements, which gives it a complexity of:
 n * Θ(n) = Θ(n^2)
 
-The result would iterate through m elements in filtered which gives an complexity of:
+The second line iterates through m elements in `filtered`, which gives a complexity of:
 m * Θ(1) = Θ(m)
 
 The total complexity is:
@@ -24,8 +20,6 @@ The total complexity is:
 
 Exercise 4c:
 The refactoring preserves the asymptotic complexity. Both have an overall complexity of Θ(n^2).
-Both still do the expensive condition check which is performed n times. This keeps
-the overall complexity at Θ(n^2). 
-
-
-
+Both still perform the expensive condition check n times; version 2 does not save
+any work by avoiding transforming elements that do not pass the filter, since the comprehension
+in version 1 does that already.
