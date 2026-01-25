@@ -1,0 +1,23 @@
+
+int value = 0x12345678;
+unsigned char* bytes = (unsigned char*) &value;
+
+a)
+0x40: 0x78
+0x41: 0x56
+0x42: 0x34
+0x43: 0x12
+
+c)
+On a big-endian machine, the bytes are stored in the opposite order.
+Where the most significant byte is stored at the left
+0x40: 0x12
+0x41: 0x34
+0x42: 0x56
+0x43: 0x78
+
+d)
+Casting &value to unsigned char* treats the address as a pointer to 1-byte elements.
+This lets you access individual bytes of the 4-byte int directly (byte-wise), and using
+unsigned char avoids sign-extension and interpretation issues when reading raw bytes.
+
