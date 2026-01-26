@@ -8,5 +8,5 @@ add() stack starts at 90
 main() stack starts at a0
 (hex) a0-a3 9c-9f 98-9b
        ?      42    3
-      result   y     x
+      result   y    x
 
