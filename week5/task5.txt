@@ -1,0 +1,38 @@
+You are given a matrix stored in a one-dimensional array in row-major order:
+int value = matrix[rows * columns + column];
+
+The following code finds the maximum element in the matrix:
+int max = matrix[0];
+    for (int c = 0; c < columns; c++) {
+        for (int r = 0; r < rows; r++) {
+            int value = matrix[r * columns + c];
+            if (value > max) {
+                max = value;
+            }
+        }
+    }
+a. Explain why this code is not cache-friendly.
+Although the matrix is stored as a 1D array, it represents a 2D matrix in row-major order. Using r * columns + c, 
+consecutive elements in the same row are stored at consecutive addresses in the 1D array.
+The current code loops columns in the outer loop and rows in the inner loop, accessing in column order: 
+addresses [0*columns+c], [1*columns+c], [2*columns+c], etc.
+Each consecutive access jumps by columns positions in the 1D array, violating spatial locality and causing cache misses.
+The CPU constantly fetches new cache lines instead of reusing the loaded cache line, resulting in poor performance.
+
+b. Rewrite the loops to make the access pattern cache-friendly.
+int max = matrix[0];
+for (int r = 0; r < rows; r++) {
+    for (int c = 0; c < columns; c++) {
+        int value = matrix[r * columns + c];
+        if (value > max) {
+            max = value;
+        }
+    }
+}
+c. Explain the concepts of spatial locality and temporal locality, and how they relate to your
+answer
+Spatial locality refers to the tendency to access memory locations that are close together in the address space.
+Temporal locality refers to accessing the same memory location multiple times in a short time period. 
+For this program we can use spatial locality through caching which let's us access memory locations close to the previous element
+knowing how C treats arrays in memory. Temporal locality is not that relevant. However we reuse the max variable which. 
+

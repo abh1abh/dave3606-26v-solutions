@@ -1,0 +1,30 @@
+
+
+The following C program dynamically allocates memory and appears to free most of it correctly:
+
+void process(int n) {
+    int* buffer = malloc(sizeof(int) * n);
+    for (int i = 0; i < n; i++) {
+        int* temp = malloc(sizeof(int) * 10);
+        buffer[i] = i;
+        free(temp);
+    }
+}
+
+a. Identify the memory leak in the program.
+We do not free buffer. This memory remains unavailable to the program. 
+
+b. Explain why the leak may be difficult to notice when the program is small or runs briefly.
+Because when a program runs briefly, the leaked memory is relatively small compared to the total available 
+system memory, and the operating system reclaims all memory when the program terminates anyway. Additionally, the leak 
+has less time to accumulate, so memory usage doesn't grow noticeably. However, if the function is called 
+repeatedly in a long-running program, the leaked memory accumulates over time, eventually consuming significant 
+system resources and causing noticeable slowdowns or even running out of memory.
+
+c. Describe what happens to the program’s memory usage if a process is called repeatedly in a
+loop.
+The leaked memory accumulates over time, eventually consuming significant 
+system resources and causing noticeable slowdowns or even running out of memory.
+
+d. Fix the program so that it does not leak memory.
+We add deallocation the buffer by using free(). 

@@ -1,0 +1,46 @@
+In C, a matrix can be represented as an array of pointers to rows: int** matrix;
+
+a. Explain how such a matrix is typically allocated in memory.
+
+The matrix is allocated in two steps:
+1. First, an array of row pointers is allocated contiguously in memory
+2. Then, each row is allocated separately in different memory locations
+
+This creates a two-level structure where the pointers themselves are stored consecutively,
+but the actual row data is scattered throughout the heap. 
+Each pointer in the array points to a different, random memory location where its 
+corresponding row is stored.
+
+b. Compared to a single contiguous array, what are the advantages and disadvantages of this
+representation with respect to:
+i. Memory allocation
+Advantages:
+- Can allocate rows of different sizes 
+- Can resize individual rows independently
+- Failed allocation of one row doesn't lose all data
+
+Disadvantages:
+- Extra memory for storing pointers
+- More complex deallocation logic
+
+ii. Cache friendliness
+Advantages:
+- None
+
+Disadvantages:
+- Poor cache locality. Rows scattered in memory cause cache misses
+- Cannot use CPU cache. 
+- Contiguous array keeps rows together, improving cache hits
+
+
+iii. Flexibility
+Advantages:
+- Can have rows of different lengths 
+- Easy to swap entire rows
+- Can share rows between matrices
+     
+
+Disadvantages:
+- More complex pointer management
+- Potential for memory leaks
+

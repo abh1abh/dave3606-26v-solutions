@@ -1,0 +1,28 @@
+Consider the following version of the matrix traversal:
+
+for (int r = 0; r < rows; r++) {
+    for (int c = 0; c < columns; c++) {
+        int value = matrix[c * rows + r];
+    }
+}
+
+
+a. Even though the loop structure iterates row by row, explain why this code still accesses
+memory column by column.
+The access pattern is determined by "c * rows + r", not the loop structure. As r is fixed in the inner 
+loop and c increments, we access matrix[c*rows + r], matrix[(c+1)*rows + r], matrix[(c+2)*rows + r], etc. 
+Since matrices are stored row-major in memory , incrementing c jumps across entire rows, skipping elements 
+between accesses. This creates a column-by-column access pattern in the logical matrix despite the row-by-row 
+loop structure.
+
+
+b. Describe how this affects cache performance.
+Since we are not accessing the matrix row by row, this creates poor spatial locality. Each access jumps far 
+ahead in memory, causing cache misses. The CPU loads entire cache lines sequentially, but our column-wise 
+access pattern wastes most of each loaded line, significantly reducing cache efficiency and program performance.
+
+c. What must be true about the memory layout for this access pattern to actually be cache-friendly?
+The matrix would need to be stored in column-major order, column by column, instead of row-major order. 
+In column-major layout, consecutive columns are stored sequentially in memory, so accessing matrix[c * rows + r]
+would result in sequential memory access. This would provide excellent spatial locality, with each cache line 
+containing multiple consecutive elements from the same column.
