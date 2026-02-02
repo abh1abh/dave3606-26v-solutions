@@ -1,38 +1,28 @@
-You are given a matrix stored in a one-dimensional array in row-major order:
-int value = matrix[rows * columns + column];
+Consider the following version of the matrix traversal:
 
-The following code finds the maximum element in the matrix:
-int max = matrix[0];
-    for (int c = 0; c < columns; c++) {
-        for (int r = 0; r < rows; r++) {
-            int value = matrix[r * columns + c];
-            if (value > max) {
-                max = value;
-            }
-        }
-    }
-a. Explain why this code is not cache-friendly.
-Although the matrix is stored as a 1D array, it represents a 2D matrix in row-major order. Using r * columns + c, 
-consecutive elements in the same row are stored at consecutive addresses in the 1D array.
-The current code loops columns in the outer loop and rows in the inner loop, accessing in column order: 
-addresses [0*columns+c], [1*columns+c], [2*columns+c], etc.
-Each consecutive access jumps by columns positions in the 1D array, violating spatial locality and causing cache misses.
-The CPU constantly fetches new cache lines instead of reusing the loaded cache line, resulting in poor performance.
-
-b. Rewrite the loops to make the access pattern cache-friendly.
-int max = matrix[0];
 for (int r = 0; r < rows; r++) {
     for (int c = 0; c < columns; c++) {
-        int value = matrix[r * columns + c];
-        if (value > max) {
-            max = value;
-        }
+        int value = matrix[c * rows + r];
     }
 }
-c. Explain the concepts of spatial locality and temporal locality, and how they relate to your
-answer
-Spatial locality refers to the tendency to access memory locations that are close together in the address space.
-Temporal locality refers to accessing the same memory location multiple times in a short time period. 
-For this program we can use spatial locality through caching which let's us access memory locations close to the previous element
-knowing how C treats arrays in memory. Temporal locality is not that relevant. However we reuse the max variable which. 
 
+
+a. Even though the loop structure iterates row by row, explain why this code still accesses
+memory column by column.
+The access pattern is determined by "c * rows + r", not the loop structure. As r is fixed in the inner 
+loop and c increments, we access matrix[c*rows + r], matrix[(c+1)*rows + r], matrix[(c+2)*rows + r], etc. 
+Since matrices are stored row-major in memory , incrementing c jumps across entire rows, skipping elements 
+between accesses. This creates a column-by-column access pattern in the logical matrix despite the row-by-row 
+loop structure.
+
+
+b. Describe how this affects cache performance.
+Since we are not accessing the matrix row by row, this creates poor spatial locality. Each access jumps far 
+ahead in memory, causing cache misses. The CPU loads entire cache lines sequentially, but our column-wise 
+access pattern wastes most of each loaded line, significantly reducing cache efficiency and program performance.
+
+c. What must be true about the memory layout for this access pattern to actually be cache-friendly?
+The matrix would need to be stored in column-major order, column by column, instead of row-major order. 
+In column-major layout, consecutive columns are stored sequentially in memory, so accessing matrix[c * rows + r]
+would result in sequential memory access. This would provide excellent spatial locality, with each cache line 
+containing multiple consecutive elements from the same column.

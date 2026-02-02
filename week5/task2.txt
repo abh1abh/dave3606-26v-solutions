@@ -1,23 +1,28 @@
-a. Briefly explain how the C implementation resizes the array when it becomes full.
-In the C implementation, we check the capacity of the list when adding a new element. If the size of the list 
-is the same as the capacity, the program multiple the capacity by 2 creating a larger list.
+Consider the following C program:
 
-c. Is manual memory deallocation needed in Java when the array grows? Explain briefly.
-No, Java has garbage collection. When we create a new array with size*2 and copy our new values
-to that array we do not need to deallocation the previous array. This is handle by garbage collection. 
+int sum(int* data, int length) {
+    int s = 0;
+    for (int i = 0; i <= length; i++) {
+        s += data[i];
+    }
+   return s;
+}
 
-d. If the list shrinks significantly, what should be done to avoid wasting memory?
-We should shrinks the size of the array by size/n
+a. Identify the illegal memory access in the program.
+The loop condition i <= length causes the loop to iterate from 0 to length, 
+accessing data[0] through data[length]. However, if the array data has length elements, 
+valid indices are only 0 to length-1. When i equals length, accessing data[length] is out 
+of bounds, which is an illegal memory access. This can be fixed by changing the condition 
+to i < length or i <= length - 1
 
-e. When shrinking, why should the array capacity be reduced well below the growth threshold?
-What performance issue does this avoid?
-The array capacity should be reduced well below the growth threshold to avoid thrashing. 
-For example, if growth occurs at size == capacity, shrinking should only occur at size < capacity/4.
-When you do shrink, reduce to around size * 2 rather than exactly to size.
-This ensures there's a sufficient gap between the shrink threshold and growth threshold.
-Otherwise, removing a few elements could trigger a shrink, then adding a few elements could trigger
-a grow, creating an expensive cycle of constant resizing. This thrashing wastes CPU cycles and
-degrades performance with no benefit to the user. 
+b. Explain why this access leads to undefined behavior in C.
+Because accessing an memory address outside an defined array is not allowed. We do not know is saved there, 
+and that cause undefined behavior.
 
 
-
+d. Could the same bug occur in Java? Explain why or why not
+No, the same bug cannot occur in Java in the same way. While you could write the same code 
+with i <= length, Java performs runtime bounds checking on array accesses. When the loop 
+tries to access data[length], Java throws an ArrayIndexOutOfBoundsException instead of allowing 
+illegal memory access. This prevents undefined behavior and makes the error immediately visible to 
+the developer.

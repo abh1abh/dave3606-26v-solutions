@@ -1,28 +1,46 @@
-Consider the following version of the matrix traversal:
+In C, a matrix can be represented as an array of pointers to rows: int** matrix;
 
-for (int r = 0; r < rows; r++) {
-    for (int c = 0; c < columns; c++) {
-        int value = matrix[c * rows + r];
-    }
-}
+a. Explain how such a matrix is typically allocated in memory.
+
+The matrix is allocated in two steps:
+1. First, an array of row pointers is allocated contiguously in memory
+2. Then, each row is allocated separately in different memory locations
+
+This creates a two-level structure where the pointers themselves are stored consecutively,
+but the actual row data is scattered throughout the heap. 
+Each pointer in the array points to a different, random memory location where its 
+corresponding row is stored.
+
+b. Compared to a single contiguous array, what are the advantages and disadvantages of this
+representation with respect to:
+i. Memory allocation
+Advantages:
+- Can allocate rows of different sizes 
+- Can resize individual rows independently
+- Failed allocation of one row doesn't lose all data
+
+Disadvantages:
+- Extra memory for storing pointers
+- More complex deallocation logic
+
+ii. Cache friendliness
+Advantages:
+- None
+
+Disadvantages:
+- Poor cache locality. Rows scattered in memory cause cache misses
+- Cannot use CPU cache. 
+- Contiguous array keeps rows together, improving cache hits
 
 
-a. Even though the loop structure iterates row by row, explain why this code still accesses
-memory column by column.
-The access pattern is determined by "c * rows + r", not the loop structure. As r is fixed in the inner 
-loop and c increments, we access matrix[c*rows + r], matrix[(c+1)*rows + r], matrix[(c+2)*rows + r], etc. 
-Since matrices are stored row-major in memory , incrementing c jumps across entire rows, skipping elements 
-between accesses. This creates a column-by-column access pattern in the logical matrix despite the row-by-row 
-loop structure.
+iii. Flexibility
+Advantages:
+- Can have rows of different lengths 
+- Easy to swap entire rows
+- Can share rows between matrices
+     
 
+Disadvantages:
+- More complex pointer management
+- Potential for memory leaks
 
-b. Describe how this affects cache performance.
-Since we are not accessing the matrix row by row, this creates poor spatial locality. Each access jumps far 
-ahead in memory, causing cache misses. The CPU loads entire cache lines sequentially, but our column-wise 
-access pattern wastes most of each loaded line, significantly reducing cache efficiency and program performance.
-
-c. What must be true about the memory layout for this access pattern to actually be cache-friendly?
-The matrix would need to be stored in column-major order, column by column, instead of row-major order. 
-In column-major layout, consecutive columns are stored sequentially in memory, so accessing matrix[c * rows + r]
-would result in sequential memory access. This would provide excellent spatial locality, with each cache line 
-containing multiple consecutive elements from the same column.

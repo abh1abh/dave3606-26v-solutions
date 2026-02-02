@@ -1,30 +1,38 @@
+You are given a matrix stored in a one-dimensional array in row-major order:
+int value = matrix[rows * columns + column];
 
+The following code finds the maximum element in the matrix:
+int max = matrix[0];
+    for (int c = 0; c < columns; c++) {
+        for (int r = 0; r < rows; r++) {
+            int value = matrix[r * columns + c];
+            if (value > max) {
+                max = value;
+            }
+        }
+    }
+a. Explain why this code is not cache-friendly.
+Although the matrix is stored as a 1D array, it represents a 2D matrix in row-major order. Using r * columns + c, 
+consecutive elements in the same row are stored at consecutive addresses in the 1D array.
+The current code loops columns in the outer loop and rows in the inner loop, accessing in column order: 
+addresses [0*columns+c], [1*columns+c], [2*columns+c], etc.
+Each consecutive access jumps by columns positions in the 1D array, violating spatial locality and causing cache misses.
+The CPU constantly fetches new cache lines instead of reusing the loaded cache line, resulting in poor performance.
 
-The following C program dynamically allocates memory and appears to free most of it correctly:
-
-void process(int n) {
-    int* buffer = malloc(sizeof(int) * n);
-    for (int i = 0; i < n; i++) {
-        int* temp = malloc(sizeof(int) * 10);
-        buffer[i] = i;
-        free(temp);
+b. Rewrite the loops to make the access pattern cache-friendly.
+int max = matrix[0];
+for (int r = 0; r < rows; r++) {
+    for (int c = 0; c < columns; c++) {
+        int value = matrix[r * columns + c];
+        if (value > max) {
+            max = value;
+        }
     }
 }
+c. Explain the concepts of spatial locality and temporal locality, and how they relate to your
+answer
+Spatial locality refers to the tendency to access memory locations that are close together in the address space.
+Temporal locality refers to accessing the same memory location multiple times in a short time period. 
+For this program we can use spatial locality through caching which let's us access memory locations close to the previous element
+knowing how C treats arrays in memory. Temporal locality is not that relevant. However we reuse the max variable which. 
 
-a. Identify the memory leak in the program.
-We do not free buffer. This memory remains unavailable to the program. 
-
-b. Explain why the leak may be difficult to notice when the program is small or runs briefly.
-Because when a program runs briefly, the leaked memory is relatively small compared to the total available 
-system memory, and the operating system reclaims all memory when the program terminates anyway. Additionally, the leak 
-has less time to accumulate, so memory usage doesn't grow noticeably. However, if the function is called 
-repeatedly in a long-running program, the leaked memory accumulates over time, eventually consuming significant 
-system resources and causing noticeable slowdowns or even running out of memory.
-
-c. Describe what happens to the program’s memory usage if a process is called repeatedly in a
-loop.
-The leaked memory accumulates over time, eventually consuming significant 
-system resources and causing noticeable slowdowns or even running out of memory.
-
-d. Fix the program so that it does not leak memory.
-We add deallocation the buffer by using free(). 

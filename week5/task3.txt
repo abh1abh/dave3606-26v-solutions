@@ -1,28 +1,30 @@
-Consider the following C program:
 
-int sum(int* data, int length) {
-    int s = 0;
-    for (int i = 0; i <= length; i++) {
-        s += data[i];
+
+The following C program dynamically allocates memory and appears to free most of it correctly:
+
+void process(int n) {
+    int* buffer = malloc(sizeof(int) * n);
+    for (int i = 0; i < n; i++) {
+        int* temp = malloc(sizeof(int) * 10);
+        buffer[i] = i;
+        free(temp);
     }
-   return s;
 }
 
-a. Identify the illegal memory access in the program.
-The loop condition i <= length causes the loop to iterate from 0 to length, 
-accessing data[0] through data[length]. However, if the array data has length elements, 
-valid indices are only 0 to length-1. When i equals length, accessing data[length] is out 
-of bounds, which is an illegal memory access. This can be fixed by changing the condition 
-to i < length or i <= length - 1
+a. Identify the memory leak in the program.
+We do not free buffer. This memory remains unavailable to the program. 
 
-b. Explain why this access leads to undefined behavior in C.
-Because accessing an memory address outside an defined array is not allowed. We do not know is saved there, 
-and that cause undefined behavior.
+b. Explain why the leak may be difficult to notice when the program is small or runs briefly.
+Because when a program runs briefly, the leaked memory is relatively small compared to the total available 
+system memory, and the operating system reclaims all memory when the program terminates anyway. Additionally, the leak 
+has less time to accumulate, so memory usage doesn't grow noticeably. However, if the function is called 
+repeatedly in a long-running program, the leaked memory accumulates over time, eventually consuming significant 
+system resources and causing noticeable slowdowns or even running out of memory.
 
+c. Describe what happens to the program’s memory usage if a process is called repeatedly in a
+loop.
+The leaked memory accumulates over time, eventually consuming significant 
+system resources and causing noticeable slowdowns or even running out of memory.
 
-d. Could the same bug occur in Java? Explain why or why not
-No, the same bug cannot occur in Java in the same way. While you could write the same code 
-with i <= length, Java performs runtime bounds checking on array accesses. When the loop 
-tries to access data[length], Java throws an ArrayIndexOutOfBoundsException instead of allowing 
-illegal memory access. This prevents undefined behavior and makes the error immediately visible to 
-the developer.
+d. Fix the program so that it does not leak memory.
+We add deallocation the buffer by using free(). 

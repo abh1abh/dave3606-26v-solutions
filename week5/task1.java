@@ -1,6 +1,6 @@
 package week5;
 
-public class task2 {
+public class task1 {
     public static void main(String[] args) {
         int[] numbers = { 1, 2, 3, 4, 5 };
         int sum = 0;
