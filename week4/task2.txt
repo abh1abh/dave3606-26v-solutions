@@ -1,12 +1,15 @@
-
-
 add() stack starts at 90
 (hex) 90-93 94-97 98-9b
         45    3     42
-      result  x    y
+      result  x      y
+
+Note: the solution that was originally published had incorrect memory addresses for x and y in `main`
+(they were the same as in `add`). This was corrected on February 2. Within a stack frame, however,
+the placement of the variables and parameters is up to the compiler, so the relative order within
+a stack frame could vary (but parameters and local variables are commonly placed in opposite orders).
 
 main() stack starts at a0
-(hex) a0-a3 9c-9f 98-9b
+(hex) a0-a3 a4-a7 a8-ab
        ?      42    3
       result   y    x
 
