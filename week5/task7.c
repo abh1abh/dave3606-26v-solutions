@@ -2,12 +2,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-typedef struct Person {
+typedef struct Person Person;
+typedef struct DoublyLinkedList DoublyLinkedList;
+
+struct Person {
     char name[50];
     int age;
     struct Person* previous;
     struct Person* next;
-} Person;
+};
 
 Person* create_person(char* name, int age) {
     Person* person = (Person*) malloc(sizeof(Person));
@@ -17,11 +20,10 @@ Person* create_person(char* name, int age) {
     person->next = NULL;
     return person;
 };
-
-typedef struct DoublyLinkedList {
+ struct DoublyLinkedList {
     Person* first;
     Person* last;
-} DoublyLinkedList;
+}; 
 
 // Initialize the list
 DoublyLinkedList* initList() {
